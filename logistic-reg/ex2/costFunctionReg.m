@@ -18,8 +18,21 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 
 
+%compute unregulated gradient
+grad = (1 / m) * (X' * (sigmoid(X * theta) - y));
+%Save the unregulated intercept 
+g_1 = grad(1);
+%Compute the regulation 
+reg =  (lambda / m) * theta;
+%Add our regulation 
+grad = grad + reg;
+%Overwrite the intercept 
+grad(1) = g_1;
 
-
+%Compute Cost 
+J = -1 / m * sum(y' * log(sigmoid(X * theta)) ... 
+  + (1 - y)' * log(1 - sigmoid(X * theta))) ...
+  + (lambda / (2 * m)) * sum(theta(2:end) .^ 2);
 
 
 % =============================================================
