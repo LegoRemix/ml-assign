@@ -15,7 +15,10 @@ X_poly = zeros(numel(X), p);
 %
 % 
 
+m = size(X, 1);
 
+expMat = repmat(1:p, m, 1);
+X_poly = X .^ expMat;
 
 
 
